@@ -1,0 +1,56 @@
+questions = ['Lebron is a...','how many stars are on the us flag','where is azerbaijan']
+answers = [
+    ['basketball player','soccer player','comedian'],
+    [50,25,40],
+    ['asia','africa','south america']
+           ]
+
+i=0
+
+
+def question_screen():
+    """
+    Shows & updates question if it is clicked.
+    """
+    question, set_question = React.useState(questions[0])
+
+    option_1,set_option_1 = React.useState(answers[0][0])
+    option_2,set_option_2 = React.useState(answers[0][1])
+    option_3,set_option_3 = React.useState(answers[0][2])
+
+    def next():
+        global i
+        i+=1
+        set_question(questions[i])
+
+        show_options()
+
+    def show_options():
+        global i
+        set_option_1(answers[i][0])
+        set_option_2(answers[i][1])
+        set_option_3(answers[i][2])
+
+    def correct():
+        set_option_1("CORRECT!!!")
+
+
+    return [
+        React.createElement('button', {'onClick': next}, question), # question bar
+        React.createElement('br',None),
+
+        # answer bars
+        React.createElement('button',{'onClick':correct},option_1),
+        React.createElement('button', None, option_2),
+        React.createElement('button', None, option_3)
+    ]
+
+
+def render():
+    ReactDOM.render(
+        React.createElement(question_screen,None),
+        document.getElementById('root')
+    )
+
+
+document.addEventListener('DOMContentLoaded',render)
